@@ -1,0 +1,17 @@
+<?php
+$Score = 83
+if($Score<90){
+    echo "You have got a B!";
+}
+if($Score<80){
+    echo "You have got a C!";
+}
+if($Score<70){
+    echo "You have got a D!";
+}
+if($Score<60){
+    echo "You have got an F!";
+}
+
+
+?>
