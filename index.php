@@ -1,18 +1,30 @@
-<?php get_header(); ?>
+<?php
 
-<main>
-    <h1>Welcome to my First Theme</h1>
-    <?php
-    if(have_posts()):
-        while (have_posts()) : the_post();
-            the_title('<h2>','</h2>');
-            the_content();
-        endwhile;
-    else:
-        echo'<p> No content availabe.</p>';
-    endif;
-    ?>
 
-</main>
+add_action('widgets_init', 'dstheme_sidebars');
+function dstheme_sidebars(){
+    register_sidebar(
+        array(
+            'name' => 'Blog Sidebar',
+            'id' => 'sidebar-blog',
+            'description' => 'This is the Blog Sidebar. You can add your widgets here.',
+            'before_widget' => '<div class = "widget-title">',
+            'after_widget' => '</div>',
+            'before_title' => '<h4 class = "widget-title">',
+            'after_title' => '</h4>'
+        )
+    );
+} 
 
-<?php get_footer(); ?>
+register_sidebar(
+    array(
+        'name' => 'Blog Sidebar',
+        'id' => 'sidebar-blog',
+        'description' => 'This is the Blog Sidebar. You can add your widgets here.',
+        'before_widget' => '<div class = "widget-title">',
+        'after_widget' => '</div>',
+        'before_title' => '<h4 class = "widget-title">',
+        'after_title' => '</h4>'
+    )
+); 
+?>
