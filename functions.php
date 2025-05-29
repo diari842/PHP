@@ -1,48 +1,30 @@
-if( function_exists('acf_add_local_field_group') ) {
+<?php
+require_once get_template_directory() . '/inc/custom-post-types.php';
+require_once get_template_directory() . '/inc/enqueue.php';
+require_once get_template_directory() . '/inc/form-handler.php';
+require_once get_template_directory() . '/inc/custom-fields.php';
+require_once get_template_directory() . '/inc/ajax-filters.php';
 
-    acf_add_local_field_group(array(
-        'key' => 'group_homepage_content',
-        'title' => 'Homepage Content',
-        'fields' => array(
-            array(
-                'key' => 'field_hero_image',
-                'label' => 'Hero Image',
-                'name' => 'hero_image',
-                'type' => 'file',
-                'instructions' => 'Upload a hero image (JPG, PNG, WebP).',
-                'required' => 1,
-                'return_format' => 'array',
-                'library' => 'all',
-                'mime_types' => 'jpg,jpeg,png,webp',
-            ),
-            array(
-                'key' => 'field_hero_text',
-                'label' => 'Hero Text',
-                'name' => 'hero_text',
-                'type' => 'wysiwyg',
-                'instructions' => 'Enter the text to display over the hero image.',
-                'required' => 1,
-                'tabs' => 'all',
-                'toolbar' => 'full',
-                'media_upload' => 0,
-                'delay' => 0,
-            ),
-        ),
-        'location' => array(
-            array(
-                array(
-                    'param' => 'page_type',
-                    'operator' => '==',
-                    'value' => 'front_page',
-                ),
-            ),
-        ),
-        'style' => 'default',
-        'position' => 'normal',
-        'label_placement' => 'top',
-        'instruction_placement' => 'label',
-        'active' => true,
-        'description' => '',
-    ));
-
+function citypulse_theme_setup() {
+    add_theme_support('post-thumbnails');
+    add_theme_support('title-tag');
+    add_theme_support('custom-logo');
+    add_theme_support('html5', ['search-form', 'comment-form', 'gallery']);
+    register_nav_menus([
+        'main-menu' => 'Main Menu',
+        'footer-menu' => 'Footer Menu'
+    ]);
 }
+add_action('after_setup_theme', 'citypulse_theme_setup');
+
+function citypulse_widgets_init() {
+    register_sidebar([
+        'name' => 'Sidebar',
+        'id' => 'sidebar-1',
+        'before_widget' => '<div class="widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>',
+    ]);
+}
+add_action('widgets_init', 'citypulse_widgets_init');
